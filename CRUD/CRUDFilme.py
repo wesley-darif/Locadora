@@ -1,6 +1,5 @@
+from sysconfig import __main__
 from banco import conexao, cursor
-
-print("Escolha uma opção:\n 1 - Listar Filmes\n 2 - Cadastrar Filmes\n 3 - Editar Filmes\n 4 - Excluir Filmes" )
 
 
 
@@ -16,16 +15,16 @@ def listar_filmes():
 def cadastrar_filmes():
     cursor.execute("SELECT * FROM Tbl_Filmes")
     Nome = (input("Informe o nome do filme: "))
-    Codigo = int(input("Informe o ID do filme: "))
-    Classificacao = int(input("Informe a classificação do filme: "))
-    CodigoGenero = int(input("Informe a codigo do genero do filme: "))
-    Preco = int(input("Informe o Preço do filme: "))
-    Estoque = int(input("Informe o estoque do filme: "))
+    Codigo = (input("Informe o ID do filme: "))
+    Classificacao = (input("Informe a classificação do filme: "))
+    CodigoGenero = (input("Informe a codigo do genero do filme: "))
+    Preco = (input("Informe o Preço do filme: "))
+    Estoque = (input("Informe o estoque do filme: "))
     print("Filme cadastrado com sucesso")
 
 
-    comando = f"""INSERT INTO Tbl_Filmes (Nome_Filme, Codigo_Filme, Classificacao,Codigo_Genero, Preco, Estoque) VALUES ('{Nome}', {Codigo}, {Classificacao},{CodigoGenero}, {Preco}, {Estoque})"""
-    cursor.execute(comando)
+    comando = """INSERT INTO Tbl_Filmes (Nome_Filme, Codigo_Filme, Classificacao,Codigo_Genero, Preco, Estoque) VALUES (?, ?, ?,?, ?, ?)"""
+    cursor.execute(comando, Nome, Codigo, Classificacao, CodigoGenero, Preco, Estoque)
     cursor.commit()
 
 
@@ -34,15 +33,15 @@ def cadastrar_filmes():
 def Editar_filmes():
     cursor.execute("SELECT * FROM Tbl_Filmes")
     Nome = (input("Informe o nome do filme: "))
-    ID = int(input("Informe o ID do filme: "))
-    ID_NOVO = int(input("Informe o novo ID: "))
-    Classificacao = int(input("Informe a classificação do filme: "))
-    CodigoGenero = int(input("Informe a codigo do genero do filme: "))
-    Preco = int(input("Informe o Preço do filme: "))
-    Estoque = int(input("Informe o estoque do filme: "))
+    ID_NOVO = (input("Informe o novo ID: "))
+    Classificacao = (input("Informe a classificação do filme: "))
+    CodigoGenero = (input("Informe a codigo do genero do filme: "))
+    Preco = (input("Informe o Preço do filme: "))
+    Estoque = (input("Informe o estoque do filme: "))
+    ID = (input("Informe o ID do filme: "))
 
-    comando = f"""UPDATE Tbl_Filmes SET Nome_Filme = '{Nome}', Codigo_Filme = {ID_NOVO}, Classificacao = {Classificacao}, Codigo_Genero = {CodigoGenero}, Preco = {Preco}, Estoque = {Estoque} WHERE Codigo_Filme = {ID}"""
-    cursor.execute(comando)
+    comando = """UPDATE Tbl_Filmes SET Nome_Filme = ?, Codigo_Filme = ?, Classificacao = ?, Codigo_Genero = ?, Preco = ?, Estoque = ? WHERE Codigo_Filme = ?"""
+    cursor.execute(comando, Nome, ID_NOVO, Classificacao, CodigoGenero, Preco, Estoque, ID)
     cursor.commit()
     print("Filme Editado com sucesso")
 
@@ -53,17 +52,30 @@ def Excluir_filmes():
     cursor.execute("SELECT * FROM Tbl_Filmes")
     ID = int(input("Informe o ID do Filme: "))
 
-    comando = f"""DELETE FROM Tbl_Filmes WHERE Codigo_Filme = {ID}"""
-    cursor.execute(comando,)
+    comando = """DELETE FROM Tbl_Filmes WHERE Codigo_Filme = ?"""
+    cursor.execute(comando, ID)
     cursor.commit()
     print("Filme excluido com sucesso")
 
-opcao = int(input("Digite sua escolha: "))
-if opcao == 1:
-    listar_filmes()
-elif opcao == 2:
-    cadastrar_filmes()
-elif opcao == 3:
-    Editar_filmes()
-else:
-    Excluir_filmes()
+
+
+def menu_filme():
+
+    print("1 - Listar filme")
+    print("2 - Cadastrar filme")
+    print("3 - Editar filme")
+    print("4 - Excluir filme")
+
+    opcao = int(input("Digite sua escolha: "))
+
+    if opcao == 1:
+        listar_filmes()
+
+    elif opcao == 2:
+        cadastrar_filmes()
+
+    elif opcao == 3:
+        Editar_filmes()
+
+    elif opcao == 4:
+        Excluir_filmes()

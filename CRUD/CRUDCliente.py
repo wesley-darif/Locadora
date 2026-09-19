@@ -1,8 +1,5 @@
-from datetime import date
-
+from sysconfig import __main__
 from banco import conexao, cursor
-
-print("Escolha uma opção:\n 1 - Listar Clientes\n 2 - Cadastrar Clientes\n 3 - Editar Clientes\n 4 - Excluir Clientes" )
 
 
 
@@ -16,19 +13,20 @@ def listar_cliente():
 
 # Função para Cadastrar Clientes
 def cadastrar_cliente():
-    cursor.execute("SELECT * FROM Tbl_Clientes")
+
     Nome = (input("Informe o nome do Cliente: "))
     ID = int(input("Informe o ID do Cliente: "))
     Nascimento = (input("Informe o nascimento do Cliente: "))
     Sexo = (input("Informe o sexo do Cliente: "))
-    Telefone = int(input("Informe o telefone do Cliente: "))
+    Telefone = (input("Informe o telefone do Cliente: "))
     Endereco = (input("Informe o endereco do Cliente: "))
-    print("Cliente cadastrado com sucesso")
 
 
-    comando = f"""INSERT INTO Tbl_Clientes (Nome_Cliente, Codigo_Cliente, Data_Nascimento, Sexo, Telefone, Endereco) VALUES ('{Nome}', {ID}, '{Nascimento}', '{Sexo}', '{Telefone}', '{Endereco}')"""
-    cursor.execute(comando)
+
+    comando = """INSERT INTO Tbl_Clientes (Nome_Cliente, Codigo_Cliente, Data_Nascimento, Sexo, Telefone, Endereco) VALUES (?, ?, ?, ?, ?, ?)"""
+    cursor.execute(comando, Nome, ID, Nascimento, Sexo, Telefone, Endereco)
     cursor.commit()
+    print("Cliente cadastrado com sucesso")
 
 
 #Função editar Genero
@@ -36,16 +34,16 @@ def cadastrar_cliente():
 def Editar_cliente():
     cursor.execute("SELECT * FROM Tbl_Clientes")
     Nome = (input("Informe o nome do Cliente: "))
-    ID = (input("Informe o ID do Cliente: "))
     ID_NOVO = int(input("Informe o novo ID: "))
     Nascimento = (input("Informe o nascimento do Cliente: "))
     Sexo = (input("Informe o sexo do Cliente: "))
-    Telefone = int(input("Informe o telefone do Cliente: "))
+    Telefone = (input("Informe o telefone do Cliente: "))
     Endereco = (input("Informe o endereco do Cliente: "))
+    ID = (input("Informe o ID do Cliente: "))
 
 
-    comando = f"""UPDATE Tbl_Clientes SET Nome_Cliente = '{Nome}', Codigo_Cliente = '{ID_NOVO}', Data_Nascimento = '{Nascimento}', Sexo = '{Sexo}', Telefone = {Telefone}, Endereco = '{Endereco}' WHERE Codigo_Cliente = '{ID}'"""
-    cursor.execute(comando,)
+    comando = """UPDATE Tbl_Clientes SET Nome_Cliente = ?, Codigo_Cliente = ?, Data_Nascimento = ?, Sexo = ?, Telefone = ?, Endereco = ? WHERE Codigo_Cliente = ?"""
+    cursor.execute(comando, Nome, ID_NOVO, Nascimento, Sexo, Telefone, Endereco, ID)
     cursor.commit()
     print("Cliente Editado com sucesso")
 
@@ -56,17 +54,30 @@ def Excluir_cliente():
     cursor.execute("SELECT * FROM Tbl_Clientes")
     ID = (input("Informe o ID do Cliente: "))
 
-    comando = f"""DELETE FROM Tbl_Clientes WHERE Codigo_Cliente = '{ID}'"""
+    comando = """DELETE FROM Tbl_Clientes WHERE Codigo_Cliente = ?"""
     cursor.execute(comando,)
     cursor.commit()
     print("Genero excluido com sucesso")
 
-opcao = int(input("Digite sua escolha: "))
-if opcao == 1:
-    listar_cliente()
-elif opcao == 2:
-    cadastrar_cliente()
-elif opcao == 3:
-    Editar_cliente()
-else:
-    Excluir_cliente()
+
+
+def menu_cliente():
+
+    print("1 - Listar cliente")
+    print("2 - Cadastrar cliente")
+    print("3 - Editar cliente")
+    print("4 - Excluir cliente")
+
+    opcao = int(input("Digite sua escolha: "))
+
+    if opcao == 1:
+        listar_cliente()
+
+    elif opcao == 2:
+        cadastrar_cliente()
+
+    elif opcao == 3:
+        Editar_cliente()
+
+    elif opcao == 4:
+        Excluir_cliente()

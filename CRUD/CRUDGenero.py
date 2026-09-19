@@ -1,8 +1,6 @@
+from sysconfig import __main__
+
 from banco import conexao, cursor
-
-print("Escolha uma opção:\n 1 - Listar Generos\n 2 - Cadastrar Genero\n 3 - Editar Genero\n 4 - Excluir Genero" )
-
-
 
 #Função para listar generos
 def listar_genero():
@@ -20,8 +18,8 @@ def cadastrar_genero():
     print("Genero cadastrado com sucesso")
 
 
-    comando = f"""INSERT INTO Tbl_Genero (Nome_Genero, Codigo_Genero) VALUES ('{NomeCad}', {IDCad})"""
-    cursor.execute(comando)
+    comando = """INSERT INTO Tbl_Genero (Nome_Genero, Codigo_Genero) VALUES ('?, ?)"""
+    cursor.execute(comando, NomeCad, IDCad)
     cursor.commit()
 
 
@@ -30,11 +28,12 @@ def cadastrar_genero():
 def Editar_genero():
     cursor.execute("SELECT * FROM Tbl_Genero")
     Nome = (input("Informe o nome do genero: "))
-    ID = int(input("Informe o ID do genero: "))
     ID_NOVO = int(input("Informe o novo ID: "))
+    ID = int(input("Informe o ID do genero: "))
 
-    comando = f"""UPDATE Tbl_Genero SET Nome_Genero = '{Nome}', Codigo_Genero = {ID_NOVO} WHERE Codigo_Genero = {ID}"""
-    cursor.execute(comando,)
+    comando = """UPDATE Tbl_Genero SET Nome_Genero = ?, Codigo_Genero = ? WHERE Codigo_Genero = ?"""
+    cursor.execute(comando, Nome, ID_NOVO, ID)
+    cursor.commit()
     cursor.commit()
     print("Genero Editado com sucesso")
 
@@ -45,17 +44,30 @@ def Excluir_genero():
     cursor.execute("SELECT * FROM Tbl_Genero")
     ID = int(input("Informe o ID do genero: "))
 
-    comando = f"""DELETE FROM Tbl_Genero WHERE Codigo_Genero = {ID}"""
-    cursor.execute(comando,)
+    comando = """DELETE FROM Tbl_Genero WHERE Codigo_Genero = ?"""
+    cursor.execute(comando, ID)
     cursor.commit()
     print("Genero excluido com sucesso")
 
-opcao = int(input("Digite sua escolha: "))
-if opcao == 1:
-    listar_genero()
-elif opcao == 2:
-    cadastrar_genero()
-elif opcao == 3:
-    Editar_genero()
-else:
-    Excluir_genero()
+
+
+def menu_genero():
+
+    print("1 - Listar gêneros")
+    print("2 - Cadastrar gênero")
+    print("3 - Editar gênero")
+    print("4 - Excluir gênero")
+
+    opcao = int(input("Digite sua escolha: "))
+
+    if opcao == 1:
+        listar_genero()
+
+    elif opcao == 2:
+        cadastrar_genero()
+
+    elif opcao == 3:
+        Editar_genero()
+
+    elif opcao == 4:
+        Excluir_genero()
