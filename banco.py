@@ -1,8 +1,5 @@
 import pyodbc
 
-from optparse import Values
-from tkinter.constants import INSERT
-
 dados_conexao = (
     "DRIVER={ODBC Driver 18 for SQL Server};"
     "SERVER=localhost\SQLEXPRESS;"

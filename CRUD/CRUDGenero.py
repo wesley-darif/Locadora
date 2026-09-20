@@ -1,5 +1,3 @@
-from sysconfig import __main__
-
 from banco import conexao, cursor
 
 #Função para listar generos
@@ -12,42 +10,48 @@ def listar_genero():
 
 # Função para Cadastrar generos
 def cadastrar_genero():
-    cursor.execute("SELECT * FROM Tbl_Genero")
-    NomeCad = (input("Informe o nome do genero: "))
-    IDCad = int(input("Informe o ID do genero: "))
-    print("Genero cadastrado com sucesso")
+    try:
+        NomeCad = (input("Informe o nome do genero: "))
+        IDCad = int(input("Informe o ID do genero: "))
 
+        comando = """INSERT INTO Tbl_Genero (Nome_Genero, Codigo_Genero) VALUES (?, ?)"""
+        cursor.execute(comando, NomeCad, IDCad)
+        cursor.commit()
+        print("Genero cadastrado com sucesso")
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")
 
-    comando = """INSERT INTO Tbl_Genero (Nome_Genero, Codigo_Genero) VALUES ('?, ?)"""
-    cursor.execute(comando, NomeCad, IDCad)
-    cursor.commit()
 
 
 #Função editar Genero
 
 def Editar_genero():
-    cursor.execute("SELECT * FROM Tbl_Genero")
-    Nome = (input("Informe o nome do genero: "))
-    ID_NOVO = int(input("Informe o novo ID: "))
-    ID = int(input("Informe o ID do genero: "))
+    try:
+        Nome = (input("Informe o nome do genero: "))
+        ID_NOVO = int(input("Informe o novo ID: "))
+        ID = int(input("Informe o ID do genero: "))
 
-    comando = """UPDATE Tbl_Genero SET Nome_Genero = ?, Codigo_Genero = ? WHERE Codigo_Genero = ?"""
-    cursor.execute(comando, Nome, ID_NOVO, ID)
-    cursor.commit()
-    cursor.commit()
-    print("Genero Editado com sucesso")
+        comando = """UPDATE Tbl_Genero SET Nome_Genero = ?, Codigo_Genero = ? WHERE Codigo_Genero = ?"""
+        cursor.execute(comando, Nome, ID_NOVO, ID)
+        cursor.commit()
+        cursor.commit()
+        print("Genero Editado com sucesso")
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")
 
 
 #Função excluir Genero
 
 def Excluir_genero():
-    cursor.execute("SELECT * FROM Tbl_Genero")
-    ID = int(input("Informe o ID do genero: "))
+    try:
+        ID = int(input("Informe o ID do genero: "))
 
-    comando = """DELETE FROM Tbl_Genero WHERE Codigo_Genero = ?"""
-    cursor.execute(comando, ID)
-    cursor.commit()
-    print("Genero excluido com sucesso")
+        comando = """DELETE FROM Tbl_Genero WHERE Codigo_Genero = ?"""
+        cursor.execute(comando, ID)
+        cursor.commit()
+        print("Genero excluido com sucesso")
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")
 
 
 
