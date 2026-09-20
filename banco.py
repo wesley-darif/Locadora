@@ -5,7 +5,7 @@ from tkinter.constants import INSERT
 
 dados_conexao = (
     "DRIVER={ODBC Driver 18 for SQL Server};"
-    "SERVER=localhost;"
+    "SERVER=localhost\SQLEXPRESS;"
     "DATABASE=LOCADORA1;"
     "Trusted_Connection=yes;"
     "TrustServerCertificate=yes;"
