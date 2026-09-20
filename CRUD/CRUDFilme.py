@@ -18,11 +18,11 @@ def cadastrar_filmes():
         CodigoGenero = (input("Informe a codigo do genero do filme: "))
         Preco = (input("Informe o Preço do filme: "))
         Estoque = (input("Informe o estoque do filme: "))
-        print("Filme cadastrado com sucesso")
 
-        comando = """INSERT INTO Tbl_Filmes (Nome_Filme, Codigo_Filme, Classificacao, Codigo_Genero, Preco, Estoque) (?, ?, ?, ?, ?, ?)"""
+        comando = """INSERT INTO Tbl_Filmes (Nome_Filme, Codigo_Filme, Classificacao, Codigo_Genero, Preco, Estoque) VALUES (?, ?, ?, ?, ?, ?)"""
         cursor.execute(comando, Nome, Codigo, Classificacao, CodigoGenero, Preco, Estoque)
         cursor.commit()
+        print("Filme cadastrado com sucesso")
     except ValueError:
         print("Erro!! Digite apenas um numero inteiro")
 
@@ -65,21 +65,24 @@ def Excluir_filmes():
 
 def menu_filme():
 
-    print("1 - Listar filme")
-    print("2 - Cadastrar filme")
-    print("3 - Editar filme")
-    print("4 - Excluir filme")
+    try:
+        print("1 - Listar filme")
+        print("2 - Cadastrar filme")
+        print("3 - Editar filme")
+        print("4 - Excluir filme")
 
-    opcao = int(input("Digite sua escolha: "))
+        opcao = int(input("Digite sua escolha: "))
 
-    if opcao == 1:
-        listar_filmes()
+        if opcao == 1:
+            listar_filmes()
 
-    elif opcao == 2:
-        cadastrar_filmes()
+        elif opcao == 2:
+            cadastrar_filmes()
 
-    elif opcao == 3:
-        Editar_filmes()
+        elif opcao == 3:
+            Editar_filmes()
 
-    elif opcao == 4:
-        Excluir_filmes()
+        elif opcao == 4:
+            Excluir_filmes()
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")

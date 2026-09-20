@@ -34,7 +34,6 @@ def Editar_genero():
         comando = """UPDATE Tbl_Genero SET Nome_Genero = ?, Codigo_Genero = ? WHERE Codigo_Genero = ?"""
         cursor.execute(comando, Nome, ID_NOVO, ID)
         cursor.commit()
-        cursor.commit()
         print("Genero Editado com sucesso")
     except ValueError:
         print("Erro!! Digite apenas um numero inteiro")
@@ -57,21 +56,24 @@ def Excluir_genero():
 
 def menu_genero():
 
-    print("1 - Listar gêneros")
-    print("2 - Cadastrar gênero")
-    print("3 - Editar gênero")
-    print("4 - Excluir gênero")
+    try:
+        print("1 - Listar gêneros")
+        print("2 - Cadastrar gênero")
+        print("3 - Editar gênero")
+        print("4 - Excluir gênero")
 
-    opcao = int(input("Digite sua escolha: "))
+        opcao = int(input("Digite sua escolha: "))
 
-    if opcao == 1:
-        listar_genero()
+        if opcao == 1:
+            listar_genero()
 
-    elif opcao == 2:
-        cadastrar_genero()
+        elif opcao == 2:
+            cadastrar_genero()
 
-    elif opcao == 3:
-        Editar_genero()
+        elif opcao == 3:
+            Editar_genero()
 
-    elif opcao == 4:
-        Excluir_genero()
+        elif opcao == 4:
+            Excluir_genero()
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")

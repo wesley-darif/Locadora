@@ -18,7 +18,7 @@ def cadastrar_funcionario():
         comando = """INSERT INTO Tbl_Funcionarios (Nome_do_Funcionario, Codigo, Sexo) VALUES (?, ?, ?)"""
         cursor.execute(comando, Nome, ID, Sexo)
         cursor.commit()
-        print("Genero cadastrado com funcionario")
+        print("Funcionario cadastrado com funcionario")
     except ValueError:
         print("Erro!! Digite apenas um numero inteiro")
 
@@ -60,21 +60,24 @@ def Excluir_funcionario():
 
 def menu_funcionario():
 
-    print("1 - Listar funcionario")
-    print("2 - Cadastrar funcionario")
-    print("3 - Editar funcionario")
-    print("4 - Excluir funcionario")
+    try:
+        print("1 - Listar funcionario")
+        print("2 - Cadastrar funcionario")
+        print("3 - Editar funcionario")
+        print("4 - Excluir funcionario")
 
-    opcao = int(input("Digite sua escolha: "))
+        opcao = int(input("Digite sua escolha: "))
 
-    if opcao == 1:
-        listar_funcionario()
+        if opcao == 1:
+            listar_funcionario()
 
-    elif opcao == 2:
-        cadastrar_funcionario()
+        elif opcao == 2:
+            cadastrar_funcionario()
 
-    elif opcao == 3:
-        Editar_funcionario()
+        elif opcao == 3:
+            Editar_funcionario()
 
-    elif opcao == 4:
-        Excluir_funcionario()
+        elif opcao == 4:
+            Excluir_funcionario()
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")

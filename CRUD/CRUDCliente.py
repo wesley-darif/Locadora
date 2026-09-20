@@ -61,28 +61,31 @@ def Excluir_cliente():
         comando = """DELETE FROM Tbl_Clientes WHERE Codigo_Cliente = ?"""
         cursor.execute(comando, ID)
         cursor.commit()
-        print("Genero excluido com sucesso")
+        print("Cliente excluido com sucesso")
     except ValueError:
         print("Erro!! Digite apenas um numero inteiro")
 
 
 def menu_cliente():
 
-    print("1 - Listar cliente")
-    print("2 - Cadastrar cliente")
-    print("3 - Editar cliente")
-    print("4 - Excluir cliente")
+    try:
+        print("1 - Listar cliente")
+        print("2 - Cadastrar cliente")
+        print("3 - Editar cliente")
+        print("4 - Excluir cliente")
 
-    opcao = int(input("Digite sua escolha: "))
+        opcao = int(input("Digite sua escolha: "))
 
-    if opcao == 1:
-        listar_cliente()
+        if opcao == 1:
+            listar_cliente()
 
-    elif opcao == 2:
-        cadastrar_cliente()
+        elif opcao == 2:
+            cadastrar_cliente()
 
-    elif opcao == 3:
-        Editar_cliente()
+        elif opcao == 3:
+            Editar_cliente()
 
-    elif opcao == 4:
-        Excluir_cliente()
+        elif opcao == 4:
+            Excluir_cliente()
+    except ValueError:
+        print("Erro!! Digite apenas um numero inteiro")
