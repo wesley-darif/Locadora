@@ -12,11 +12,10 @@ def listar_funcionario():
 def cadastrar_funcionario():
     try:
         Nome = (input("Informe o nome do funcionario: "))
-        ID = int(input("Informe o ID do funcionario: "))
         Sexo = (input("Informe o sexo do funcionario: "))
 
-        comando = """INSERT INTO Tbl_Funcionarios (Nome_do_Funcionario, Codigo, Sexo) VALUES (?, ?, ?)"""
-        cursor.execute(comando, Nome, ID, Sexo)
+        comando = """INSERT INTO Tbl_Funcionarios (Nome_do_Funcionario, Sexo) VALUES (?, ?, ?)"""
+        cursor.execute(comando, Nome, Sexo)
         cursor.commit()
         print("Funcionario cadastrado com funcionario")
     except ValueError:
@@ -31,12 +30,11 @@ def Editar_funcionario():
     try:
 
         Nome = (input("Informe o nome do Funcionario: "))
-        ID_NOVO = int(input("Informe o novo ID: "))
         Sexo = (input("Informe o sexo do Funcionario: "))
         ID = int(input("Informe o ID do Funcionario: "))
 
-        comando = """UPDATE Tbl_Funcionarios SET Nome_do_Funcionario = ?, Codigo = ?, sexo = ? WHERE Codigo = ?"""
-        cursor.execute(comando, Nome, ID_NOVO, Sexo, ID)
+        comando = """UPDATE Tbl_Funcionarios SET Nome_do_Funcionario = ?, sexo = ? WHERE Codigo = ?"""
+        cursor.execute(comando, Nome, Sexo, ID)
         cursor.commit()
         print("Funcionario Editado com sucesso")
     except ValueError:

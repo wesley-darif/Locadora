@@ -1,4 +1,4 @@
-
+import pyodbc
 from banco import conexao, cursor
 
 
@@ -16,14 +16,13 @@ def cadastrar_cliente():
     try:
 
         Nome = (input("Informe o nome do Cliente: "))
-        ID = int(input("Informe o ID do Cliente: "))
         Nascimento = (input("Informe o nascimento do Cliente: "))
         Sexo = (input("Informe o sexo do Cliente: "))
         Telefone = (input("Informe o telefone do Cliente: "))
         Endereco = (input("Informe o endereco do Cliente: "))
 
-        comando = """INSERT INTO Tbl_Clientes (Nome_Cliente, Codigo_Cliente, Data_Nascimento, Sexo, Telefone, Endereco) VALUES (?, ?, ?, ?, ?, ?)"""
-        cursor.execute(comando, Nome, ID, Nascimento, Sexo, Telefone, Endereco)
+        comando = """INSERT INTO Tbl_Clientes (Nome_Cliente, Data_Nascimento, Sexo, Telefone, Endereco) VALUES (?, ?, ?, ?, ?, ?)"""
+        cursor.execute(comando, Nome, Nascimento, Sexo, Telefone, Endereco)
         cursor.commit()
         print("Cliente cadastrado com sucesso")
     except ValueError:
@@ -36,15 +35,14 @@ def Editar_cliente():
     try:
 
         Nome = (input("Informe o nome do Cliente: "))
-        ID_NOVO = int(input("Informe o novo ID: "))
         Nascimento = (input("Informe o nascimento do Cliente: "))
         Sexo = (input("Informe o sexo do Cliente: "))
         Telefone = (input("Informe o telefone do Cliente: "))
         Endereco = (input("Informe o endereco do Cliente: "))
         ID = (input("Informe o ID do Cliente: "))
 
-        comando = """UPDATE Tbl_Clientes SET Nome_Cliente = ?, Codigo_Cliente = ?, Data_Nascimento = ?, Sexo = ?, Telefone = ?, Endereco = ? WHERE Codigo_Cliente = ?"""
-        cursor.execute(comando, Nome, ID_NOVO, Nascimento, Sexo, Telefone, Endereco, ID)
+        comando = """UPDATE Tbl_Clientes SET Nome_Cliente = ?, Data_Nascimento = ?, Sexo = ?, Telefone = ?, Endereco = ? WHERE Codigo_Cliente = ?"""
+        cursor.execute(comando, Nome, Nascimento, Sexo, Telefone, Endereco, ID)
         cursor.commit()
         print("Cliente Editado com sucesso")
     except ValueError:

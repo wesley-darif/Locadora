@@ -1,30 +1,40 @@
 from banco import conexao, cursor
+from flask import jsonify
 
 
 #Função para listar filmes
 def listar_filmes():
     cursor.execute("SELECT * FROM Tbl_Filmes")
 
-    for Nome_Filme in cursor.fetchall():
-        print(Nome_Filme)
+    filmes = [    "Apresentando filmes com sucesso"]
+
+    for filme in cursor.fetchall():
+        filmes.append({
+
+
+            "Nome_Filme": filme[0],
+            "Codigo_Genero": filme[1],
+            "Classificacao": filme[2],
+            "Preco": filme[3],
+            "Estoque": filme[4],
+            "Codigo_Filme": filme[5]
+
+        })
+
+    return filmes
 
 
 # Função para Cadastrar Filmes
-def cadastrar_filmes():
+def cadastrar_filmes(Nome, Classificacao, CodigoGenero, Preco, Estoque):
     try:
-        Nome = (input("Informe o nome do filme: "))
-        Codigo = (input("Informe o ID do filme: "))
-        Classificacao = (input("Informe a classificação do filme: "))
-        CodigoGenero = (input("Informe a codigo do genero do filme: "))
-        Preco = (input("Informe o Preço do filme: "))
-        Estoque = (input("Informe o estoque do filme: "))
 
-        comando = """INSERT INTO Tbl_Filmes (Nome_Filme, Codigo_Filme, Classificacao, Codigo_Genero, Preco, Estoque) VALUES (?, ?, ?, ?, ?, ?)"""
-        cursor.execute(comando, Nome, Codigo, Classificacao, CodigoGenero, Preco, Estoque)
+        comando = """INSERT INTO Tbl_Filmes (Nome_Filme, Classificacao, Codigo_Genero, Preco, Estoque) VALUES (?, ?, ?, ?, ?)"""
+        cursor.execute(comando, Nome, Classificacao, CodigoGenero, Preco, Estoque)
         cursor.commit()
         print("Filme cadastrado com sucesso")
-    except ValueError:
-        print("Erro!! Digite apenas um numero inteiro")
+        return ("Filme cadastrado com sucesso")
+    except Exception as erro:
+        return f"Erro: {erro}"
 
 
 
@@ -34,15 +44,14 @@ def Editar_filmes():
     try:
 
         Nome = (input("Informe o nome do filme: "))
-        ID_NOVO = (input("Informe o novo ID: "))
         Classificacao = (input("Informe a classificação do filme: "))
         CodigoGenero = (input("Informe a codigo do genero do filme: "))
         Preco = (input("Informe o Preço do filme: "))
         Estoque = (input("Informe o estoque do filme: "))
         ID = (input("Informe o ID do filme: "))
 
-        comando = """UPDATE Tbl_Filmes SET Nome_Filme = ?, Codigo_Filme = ?, Classificacao = ?, Codigo_Genero = ?, Preco = ?, Estoque = ? WHERE Codigo_Filme = ?"""
-        cursor.execute(comando, Nome, ID_NOVO, Classificacao, CodigoGenero, Preco, Estoque, ID)
+        comando = """UPDATE Tbl_Filmes SET Nome_Filme = ?, Classificacao = ?, Codigo_Genero = ?, Preco = ?, Estoque = ? WHERE Codigo_Filme = ?"""
+        cursor.execute(comando, Nome, Classificacao, CodigoGenero, Preco, Estoque, ID)
         cursor.commit()
         print("Filme Editado com sucesso")
     except ValueError:

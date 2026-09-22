@@ -1,9 +1,13 @@
 import banco
-#from CRUD.CRUDGenero import listar_genero, cadastrar_genero, Editar_genero
-#from CRUD.CRUDFilme import listar_filmes, cadastrar_filmes, Editar_filmes, Excluir_filmes
-#from CRUD.CRUDCliente import listar_cliente, cadastrar_cliente, Editar_cliente, Excluir_cliente
-#from CRUD.CRUDFuncionarios import listar_funcionario, cadastrar_funcionario, Editar_funcionario, Excluir_funcionario
 from CRUD import CRUDGenero, CRUDFuncionarios, CRUDCliente, CRUDFilme
+from flask import Flask
+from flask import jsonify
+app = Flask(__name__)
+
+
+from Routes import *
+if __name__ == "__main__":
+    app.run()
 
 
 if __name__ == "__main__":
@@ -22,5 +26,5 @@ if __name__ == "__main__":
             CRUDCliente.menu_cliente()
         elif opcao == 4:
             CRUDFuncionarios.menu_funcionario()
-    except ValueError:
+    except:
         print("Erro!! Digite apenas um numero inteiro 1, 2, 3 ou 4")

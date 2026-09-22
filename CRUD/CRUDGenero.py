@@ -12,10 +12,9 @@ def listar_genero():
 def cadastrar_genero():
     try:
         NomeCad = (input("Informe o nome do genero: "))
-        IDCad = int(input("Informe o ID do genero: "))
 
-        comando = """INSERT INTO Tbl_Genero (Nome_Genero, Codigo_Genero) VALUES (?, ?)"""
-        cursor.execute(comando, NomeCad, IDCad)
+        comando = """INSERT INTO Tbl_Genero (Nome_Genero) VALUES (?)"""
+        cursor.execute(comando, NomeCad)
         cursor.commit()
         print("Genero cadastrado com sucesso")
     except ValueError:
@@ -28,11 +27,10 @@ def cadastrar_genero():
 def Editar_genero():
     try:
         Nome = (input("Informe o nome do genero: "))
-        ID_NOVO = int(input("Informe o novo ID: "))
         ID = int(input("Informe o ID do genero: "))
 
-        comando = """UPDATE Tbl_Genero SET Nome_Genero = ?, Codigo_Genero = ? WHERE Codigo_Genero = ?"""
-        cursor.execute(comando, Nome, ID_NOVO, ID)
+        comando = """UPDATE Tbl_Genero SET Nome_Genero = ? WHERE Codigo_Genero = ?"""
+        cursor.execute(comando, Nome, ID)
         cursor.commit()
         print("Genero Editado com sucesso")
     except ValueError:
