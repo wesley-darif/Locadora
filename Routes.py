@@ -39,3 +39,22 @@ def post_filme():
     return jsonify({
             "mensagem": resultado
         }),201
+
+
+@app.route("/Filmes/<int:Codigo_Filme>", methods=["PUT"])
+def put_filme(Codigo_Filme):
+
+    filme = request.get_json()
+
+    resultado = CRUDFilme.Editar_filmes(
+
+        filme["Nome"],
+        filme["Classificacao"],
+        filme["CodigoGenero"],
+        filme["Preco"],
+        filme["Estoque"],
+        Codigo_Filme
+    )
+    return jsonify({
+            "mensagem": resultado
+        }),200

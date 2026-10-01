@@ -40,22 +40,42 @@ def cadastrar_filmes(Nome, Classificacao, CodigoGenero, Preco, Estoque):
 
 #Função editar Genero
 
-def Editar_filmes():
+def Editar_filmes(
+    Nome_Filme,
+    Classificacao,
+    Codigo_Genero,
+    Preco,
+    Estoque,
+    Codigo_Filme
+):
     try:
 
-        Nome = (input("Informe o nome do filme: "))
-        Classificacao = (input("Informe a classificação do filme: "))
-        CodigoGenero = (input("Informe a codigo do genero do filme: "))
-        Preco = (input("Informe o Preço do filme: "))
-        Estoque = (input("Informe o estoque do filme: "))
-        ID = (input("Informe o ID do filme: "))
+        comando = """
+        UPDATE Tbl_Filmes
+        SET Nome_Filme = ?,
+            Classificacao = ?,
+            Codigo_Genero = ?,
+            Preco = ?,
+            Estoque = ?
+        WHERE Codigo_Filme = ?
+        """
 
-        comando = """UPDATE Tbl_Filmes SET Nome_Filme = ?, Classificacao = ?, Codigo_Genero = ?, Preco = ?, Estoque = ? WHERE Codigo_Filme = ?"""
-        cursor.execute(comando, Nome, Classificacao, CodigoGenero, Preco, Estoque, ID)
+        cursor.execute(
+            comando,
+            Nome_Filme,
+            Classificacao,
+            Codigo_Genero,
+            Preco,
+            Estoque,
+            Codigo_Filme
+        )
+
         cursor.commit()
-        print("Filme Editado com sucesso")
-    except ValueError:
-        print("Erro!! Digite apenas um numero inteiro")
+
+        return "Filme editado com sucesso"
+
+    except Exception as erro:
+        return f"Erro ao editar filme: {erro}"
 
 #Função excluir Genero
 
